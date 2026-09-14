@@ -1,75 +1,76 @@
-/* =====================================================
-   SMART EXPENSE MANAGER
-   ===================================================== */
+/* =========================================================
+   SMARTSPEND - SMART EXPENSE MANAGER
+========================================================= */
 
 
 /* ================= DATA ================= */
 
-let transactions = JSON.parse(
-    localStorage.getItem("transactions")
-) || [
+let transactions =
+    JSON.parse(localStorage.getItem("transactions")) || [
 
-    {
-        id: 1,
-        description: "Monthly Salary",
-        amount: 45000,
-        category: "Salary",
-        type: "income",
-        date: "2026-09-01"
-    },
+        {
+            id: 1,
+            description: "Monthly Salary",
+            amount: 45000,
+            category: "Salary",
+            type: "income",
+            date: "2026-09-01"
+        },
 
-    {
-        id: 2,
-        description: "Grocery Shopping",
-        amount: 2400,
-        category: "Food",
-        type: "expense",
-        date: "2026-09-03"
-    },
+        {
+            id: 2,
+            description: "Grocery Shopping",
+            amount: 2400,
+            category: "Food",
+            type: "expense",
+            date: "2026-09-03"
+        },
 
-    {
-        id: 3,
-        description: "Netflix Subscription",
-        amount: 649,
-        category: "Entertainment",
-        type: "expense",
-        date: "2026-09-05"
-    },
+        {
+            id: 3,
+            description: "Netflix Subscription",
+            amount: 649,
+            category: "Entertainment",
+            type: "expense",
+            date: "2026-09-05"
+        },
 
-    {
-        id: 4,
-        description: "Uber",
-        amount: 350,
-        category: "Transport",
-        type: "expense",
-        date: "2026-09-07"
-    },
+        {
+            id: 4,
+            description: "Uber",
+            amount: 350,
+            category: "Transport",
+            type: "expense",
+            date: "2026-09-07"
+        },
 
-    {
-        id: 5,
-        description: "New Shoes",
-        amount: 2800,
-        category: "Shopping",
-        type: "expense",
-        date: "2026-09-09"
-    },
+        {
+            id: 5,
+            description: "New Shoes",
+            amount: 2800,
+            category: "Shopping",
+            type: "expense",
+            date: "2026-09-09"
+        },
 
-    {
-        id: 6,
-        description: "Electricity Bill",
-        amount: 1800,
-        category: "Bills",
-        type: "expense",
-        date: "2026-09-10"
-    }
+        {
+            id: 6,
+            description: "Electricity Bill",
+            amount: 1800,
+            category: "Bills",
+            type: "expense",
+            date: "2026-09-10"
+        }
 
-];
+    ];
 
 
 let expenseChart;
 
 
-/* ================= INITIALIZATION ================= */
+/* =========================================================
+   INITIALIZE
+========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -83,10 +84,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     generateAIInsights();
 
+    setupGlobalSearch();
+
 });
 
 
-/* ================= LOCAL STORAGE ================= */
+/* =========================================================
+   STORAGE
+========================================================= */
 
 function saveTransactions() {
 
@@ -98,40 +103,87 @@ function saveTransactions() {
 }
 
 
-/* ================= DASHBOARD ================= */
+/* =========================================================
+   CURRENCY
+========================================================= */
+
+function formatCurrency(amount) {
+
+    return new Intl.NumberFormat(
+        "en-IN",
+        {
+            style: "currency",
+            currency: "INR",
+            maximumFractionDigits: 0
+        }
+    ).format(amount);
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
 
 function renderDashboard() {
 
-    const income = transactions
-        .filter(t => t.type === "income")
-        .reduce((sum, t) => sum + Number(t.amount), 0);
+    const income =
+        transactions
+
+            .filter(t => t.type === "income")
+
+            .reduce(
+                (sum, t) =>
+                    sum + Number(t.amount),
+                0
+            );
 
 
-    const expenses = transactions
-        .filter(t => t.type === "expense")
-        .reduce((sum, t) => sum + Number(t.amount), 0);
+    const expenses =
+        transactions
+
+            .filter(t => t.type === "expense")
+
+            .reduce(
+                (sum, t) =>
+                    sum + Number(t.amount),
+                0
+            );
 
 
-    const balance = income - expenses;
+    const balance =
+        income - expenses;
 
 
     const savingsRate =
         income > 0
-            ? ((balance / income) * 100)
+            ? (balance / income) * 100
             : 0;
 
 
-    document.getElementById("income").textContent =
+    document.getElementById("income")
+        .textContent =
         formatCurrency(income);
 
-    document.getElementById("expenses").textContent =
+
+    document.getElementById("expenses")
+        .textContent =
         formatCurrency(expenses);
 
-    document.getElementById("balance").textContent =
+
+    document.getElementById("balance")
+        .textContent =
         formatCurrency(balance);
 
-    document.getElementById("savingsRate").textContent =
+
+    document.getElementById("savingsRate")
+        .textContent =
         Math.max(0, savingsRate).toFixed(0) + "%";
+
+
+    document.getElementById("chartTotal")
+        .textContent =
+        formatCurrency(expenses);
 
 
     updateChart();
@@ -141,20 +193,9 @@ function renderDashboard() {
 }
 
 
-/* ================= CURRENCY ================= */
-
-function formatCurrency(amount) {
-
-    return new Intl.NumberFormat("en-IN", {
-        style: "currency",
-        currency: "INR",
-        maximumFractionDigits: 0
-    }).format(amount);
-
-}
-
-
-/* ================= MODAL ================= */
+/* =========================================================
+   MODAL
+========================================================= */
 
 function openModal() {
 
@@ -176,88 +217,160 @@ function closeModal() {
 
 document
     .getElementById("modal")
-    .addEventListener("click", function(e) {
+    .addEventListener(
+        "click",
+        function (e) {
 
-        if (e.target === this) {
-            closeModal();
+            if (e.target === this) {
+
+                closeModal();
+
+            }
+
         }
+    );
 
-    });
 
-
-/* ================= DEFAULT DATE ================= */
+/* =========================================================
+   DATE
+========================================================= */
 
 function setDefaultDate() {
 
-    const dateInput =
-        document.getElementById("date");
-
     const today =
-        new Date().toISOString().split("T")[0];
+        new Date()
+            .toISOString()
+            .split("T")[0];
 
-    dateInput.value = today;
+
+    document.getElementById(
+        "date"
+    ).value = today;
 
 }
 
 
-/* ================= TYPE SWITCH ================= */
+/* =========================================================
+   TYPE BUTTONS
+========================================================= */
 
 function setupTypeButtons() {
 
     const buttons =
-        document.querySelectorAll(".type-btn");
+        document.querySelectorAll(
+            ".type-btn"
+        );
+
 
     buttons.forEach(button => {
 
-        button.addEventListener("click", () => {
+        button.addEventListener(
+            "click",
+            () => {
 
-            buttons.forEach(btn =>
-                btn.classList.remove("active")
-            );
+                buttons.forEach(btn =>
+                    btn.classList.remove(
+                        "active"
+                    )
+                );
 
-            button.classList.add("active");
 
-            const type =
-                button.dataset.type;
+                button.classList.add(
+                    "active"
+                );
 
-            document.getElementById(
-                "transactionType"
-            ).value = type;
 
-            updateCategoryForType(type);
+                const type =
+                    button.dataset.type;
 
-        });
+
+                document.getElementById(
+                    "transactionType"
+                ).value = type;
+
+
+                updateCategoryForType(type);
+
+            }
+        );
 
     });
 
 }
 
 
+/* =========================================================
+   CATEGORY
+========================================================= */
+
 function updateCategoryForType(type) {
 
     const category =
-        document.getElementById("category");
+        document.getElementById(
+            "category"
+        );
+
 
     if (type === "income") {
 
         category.innerHTML = `
-            <option value="Salary">Salary</option>
-            <option value="Freelance">Freelance</option>
-            <option value="Business">Business</option>
-            <option value="Investment">Investment</option>
-            <option value="Other">Other</option>
+
+            <option value="Salary">
+                Salary
+            </option>
+
+            <option value="Freelance">
+                Freelance
+            </option>
+
+            <option value="Business">
+                Business
+            </option>
+
+            <option value="Investment">
+                Investment
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
         `;
 
-    } else {
+    }
+
+    else {
 
         category.innerHTML = `
-            <option value="Food">Food</option>
-            <option value="Shopping">Shopping</option>
-            <option value="Transport">Transport</option>
-            <option value="Bills">Bills</option>
-            <option value="Entertainment">Entertainment</option>
-            <option value="Health">Health</option>
-            <option value="Other">Other</option>
+
+            <option value="Food">
+                Food
+            </option>
+
+            <option value="Shopping">
+                Shopping
+            </option>
+
+            <option value="Transport">
+                Transport
+            </option>
+
+            <option value="Bills">
+                Bills
+            </option>
+
+            <option value="Entertainment">
+                Entertainment
+            </option>
+
+            <option value="Health">
+                Health
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
         `;
 
     }
@@ -265,148 +378,193 @@ function updateCategoryForType(type) {
 }
 
 
-/* ================= ADD TRANSACTION ================= */
+/* =========================================================
+   ADD TRANSACTION
+========================================================= */
 
 document
     .getElementById("transactionForm")
-    .addEventListener("submit", function(e) {
+    .addEventListener(
+        "submit",
+        function (e) {
 
-        e.preventDefault();
-
-
-        const description =
-            document.getElementById("description").value.trim();
+            e.preventDefault();
 
 
-        const amount =
-            Number(document.getElementById("amount").value);
+            const description =
+                document.getElementById(
+                    "description"
+                ).value.trim();
 
 
-        const category =
-            document.getElementById("category").value;
+            const amount =
+                Number(
+                    document.getElementById(
+                        "amount"
+                    ).value
+                );
 
 
-        const date =
-            document.getElementById("date").value;
+            const category =
+                document.getElementById(
+                    "category"
+                ).value;
 
 
-        const type =
-            document.getElementById("transactionType").value;
+            const date =
+                document.getElementById(
+                    "date"
+                ).value;
 
 
-        if (!description || amount <= 0 || !date) {
+            const type =
+                document.getElementById(
+                    "transactionType"
+                ).value;
 
-            alert("Please enter valid transaction details.");
 
-            return;
+            if (
+                !description ||
+                amount <= 0 ||
+                !date
+            ) {
+
+                alert(
+                    "Please enter valid transaction details."
+                );
+
+                return;
+
+            }
+
+
+            transactions.unshift({
+
+                id: Date.now(),
+
+                description,
+
+                amount,
+
+                category,
+
+                type,
+
+                date
+
+            });
+
+
+            saveTransactions();
+
+
+            renderDashboard();
+
+            renderTransactions();
+
+            generateAIInsights();
+
+
+            this.reset();
+
+            setDefaultDate();
+
+
+            document.getElementById(
+                "transactionType"
+            ).value = "expense";
+
+
+            document
+                .querySelectorAll(".type-btn")
+                .forEach(
+                    btn =>
+                        btn.classList.remove(
+                            "active"
+                        )
+                );
+
+
+            document
+                .querySelector(
+                    '[data-type="expense"]'
+                )
+                .classList.add("active");
+
+
+            updateCategoryForType(
+                "expense"
+            );
+
+
+            closeModal();
 
         }
+    );
 
 
-        const newTransaction = {
-
-            id: Date.now(),
-
-            description,
-
-            amount,
-
-            category,
-
-            type,
-
-            date
-
-        };
-
-
-        transactions.unshift(newTransaction);
-
-
-        saveTransactions();
-
-
-        renderDashboard();
-
-        renderTransactions();
-
-        generateAIInsights();
-
-
-        this.reset();
-
-        setDefaultDate();
-
-
-        document.getElementById(
-            "transactionType"
-        ).value = "expense";
-
-
-        document
-            .querySelectorAll(".type-btn")
-            .forEach(btn => btn.classList.remove("active"));
-
-
-        document
-            .querySelector('[data-type="expense"]')
-            .classList.add("active");
-
-
-        updateCategoryForType("expense");
-
-
-        closeModal();
-
-    });
-
-
-/* ================= TRANSACTIONS ================= */
+/* =========================================================
+   TRANSACTIONS
+========================================================= */
 
 function renderTransactions() {
 
     const container =
-        document.getElementById("transactionsList");
+        document.getElementById(
+            "transactionsList"
+        );
 
 
     const search =
         document
-            .getElementById("searchInput")
+            .getElementById(
+                "searchInput"
+            )
             .value
             .toLowerCase();
 
 
     const category =
-        document
-            .getElementById("categoryFilter")
-            .value;
+        document.getElementById(
+            "categoryFilter"
+        ).value;
 
 
     const filtered =
-        transactions.filter(transaction => {
+        transactions.filter(
+            transaction => {
 
-            const matchesSearch =
-                transaction.description
-                    .toLowerCase()
-                    .includes(search);
-
-
-            const matchesCategory =
-                category === "all" ||
-                transaction.category === category;
+                const matchesSearch =
+                    transaction.description
+                        .toLowerCase()
+                        .includes(search);
 
 
-            return matchesSearch && matchesCategory;
+                const matchesCategory =
+                    category === "all" ||
+                    transaction.category ===
+                        category;
 
-        });
+
+                return (
+                    matchesSearch &&
+                    matchesCategory
+                );
+
+            }
+        );
 
 
     if (filtered.length === 0) {
 
         container.innerHTML = `
+
             <div class="insight">
+
                 No transactions found.
+
             </div>
+
         `;
 
         return;
@@ -421,38 +579,61 @@ function renderTransactions() {
 
                 return `
 
-                <div class="transaction">
+                    <div class="transaction">
 
-                    <div class="transaction-left">
+                        <div class="transaction-left">
 
-                        <div class="transaction-icon">
-                            ${getCategoryIcon(transaction.category)}
+                            <div class="transaction-icon">
+
+                                ${getCategoryIcon(
+                                    transaction.category
+                                )}
+
+                            </div>
+
+                            <div>
+
+                                <div class="transaction-name">
+
+                                    ${escapeHTML(
+                                        transaction.description
+                                    )}
+
+                                </div>
+
+                                <div class="transaction-date">
+
+                                    ${formatDate(
+                                        transaction.date
+                                    )}
+
+                                    ·
+
+                                    ${transaction.category}
+
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <div>
 
-                            <div class="transaction-name">
-                                ${escapeHTML(transaction.description)}
-                            </div>
+                        <div class="transaction-amount ${transaction.type}">
 
-                            <div class="transaction-date">
-                                ${formatDate(transaction.date)}
-                                · ${transaction.category}
-                            </div>
+                            ${
+                                transaction.type ===
+                                "expense"
+                                    ? "-"
+                                    : "+"
+                            }
+
+                            ${formatCurrency(
+                                transaction.amount
+                            )}
 
                         </div>
 
                     </div>
-
-
-                    <div
-                        class="transaction-amount ${transaction.type}"
-                    >
-                        ${transaction.type === "expense" ? "-" : "+"}
-                        ${formatCurrency(transaction.amount)}
-                    </div>
-
-                </div>
 
                 `;
 
@@ -462,7 +643,9 @@ function renderTransactions() {
 }
 
 
-/* ================= CATEGORY ICON ================= */
+/* =========================================================
+   CATEGORY ICON
+========================================================= */
 
 function getCategoryIcon(category) {
 
@@ -498,23 +681,28 @@ function getCategoryIcon(category) {
 }
 
 
-/* ================= DATE ================= */
+/* =========================================================
+   DATE FORMAT
+========================================================= */
 
 function formatDate(date) {
 
-    return new Date(date).toLocaleDateString(
-        "en-IN",
-        {
-            day: "numeric",
-            month: "short",
-            year: "numeric"
-        }
-    );
+    return new Date(date)
+        .toLocaleDateString(
+            "en-IN",
+            {
+                day: "numeric",
+                month: "short",
+                year: "numeric"
+            }
+        );
 
 }
 
 
-/* ================= CHART ================= */
+/* =========================================================
+   CHART
+========================================================= */
 
 function updateChart() {
 
@@ -529,13 +717,14 @@ function updateChart() {
 
     expenses.forEach(transaction => {
 
-        if (!categories[transaction.category]) {
-
-            categories[transaction.category] = 0;
-
-        }
-
-        categories[transaction.category] +=
+        categories[
+            transaction.category
+        ] =
+            (
+                categories[
+                    transaction.category
+                ] || 0
+            ) +
             Number(transaction.amount);
 
     });
@@ -549,9 +738,98 @@ function updateChart() {
         Object.values(categories);
 
 
+    const colors = [
+
+        "#ff9d2e",
+
+        "#3585ff",
+
+        "#8b5cf6",
+
+        "#ff3d91",
+
+        "#00e5ff",
+
+        "#00e5a0",
+
+        "#7b8cae"
+
+    ];
+
+
+    const total =
+        values.reduce(
+            (sum, value) =>
+                sum + value,
+            0
+        );
+
+
+    const categoryList =
+        document.getElementById(
+            "categoryList"
+        );
+
+
+    categoryList.innerHTML =
+        labels.map(
+            (label, index) => {
+
+                const percentage =
+                    total > 0
+                        ? (
+                            categories[label] /
+                            total *
+                            100
+                        ).toFixed(0)
+                        : 0;
+
+
+                return `
+
+                    <div class="category-item">
+
+                        <span
+                            class="category-dot"
+                            style="
+                                background:${colors[index % colors.length]};
+                                color:${colors[index % colors.length]};
+                            "
+                        ></span>
+
+                        <span class="category-name">
+
+                            ${label}
+
+                        </span>
+
+                        <span class="category-percent">
+
+                            ${percentage}%
+
+                        </span>
+
+                        <span class="category-value">
+
+                            ${formatCurrency(
+                                categories[label]
+                            )}
+
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+
     const ctx =
         document
-            .getElementById("expenseChart")
+            .getElementById(
+                "expenseChart"
+            )
             .getContext("2d");
 
 
@@ -562,69 +840,90 @@ function updateChart() {
     }
 
 
-    expenseChart = new Chart(ctx, {
+    expenseChart =
+        new Chart(
+            ctx,
+            {
 
-        type: "doughnut",
+                type: "doughnut",
 
-        data: {
+                data: {
 
-            labels: labels,
+                    labels,
 
-            datasets: [
+                    datasets: [
 
-                {
-                    data: values,
+                        {
 
-                    borderWidth: 0
-                }
+                            data: values,
 
-            ]
+                            backgroundColor:
+                                labels.map(
+                                    (_, i) =>
+                                        colors[
+                                            i %
+                                            colors.length
+                                        ]
+                                ),
 
-        },
+                            borderColor:
+                                "#071329",
 
-        options: {
+                            borderWidth: 5,
 
-            responsive: true,
+                            hoverOffset: 10
 
-            maintainAspectRatio: false,
-
-            cutout: "68%",
-
-            plugins: {
-
-                legend: {
-
-                    position: "right",
-
-                    labels: {
-
-                        boxWidth: 12,
-
-                        padding: 15,
-
-                        font: {
-                            size: 11
                         }
+
+                    ]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    cutout: "70%",
+
+                    plugins: {
+
+                        legend: {
+
+                            display: false
+
+                        }
+
+                    },
+
+                    animation: {
+
+                        animateRotate: true,
+
+                        duration: 1000
 
                     }
 
                 }
 
             }
-
-        }
-
-    });
+        );
 
 }
 
 
-/* ================= AI INSIGHTS ================= */
+/* =========================================================
+   AI INSIGHTS
+========================================================= */
 
 function generateAIInsights() {
 
     const container =
-        document.getElementById("insightsContainer");
+        document.getElementById(
+            "insightsContainer"
+        );
 
 
     const expenses =
@@ -635,31 +934,41 @@ function generateAIInsights() {
 
     const income =
         transactions
-            .filter(t => t.type === "income")
+
+            .filter(
+                t => t.type === "income"
+            )
+
             .reduce(
-                (sum, t) => sum + Number(t.amount),
+                (sum, t) =>
+                    sum + Number(t.amount),
                 0
             );
 
 
     const totalExpenses =
         expenses.reduce(
-            (sum, t) => sum + Number(t.amount),
+            (sum, t) =>
+                sum + Number(t.amount),
             0
         );
 
 
-    if (expenses.length === 0) {
+    if (!expenses.length) {
 
         container.innerHTML = `
+
             <div class="insight success">
 
-                <strong>Great start!</strong>
+                <strong>
+                    Great start!
+                </strong>
 
-                No expenses have been recorded yet.
-                Add some transactions to receive personalized insights.
+                Add transactions and SmartSpend
+                will analyze your spending.
 
             </div>
+
         `;
 
         return;
@@ -667,15 +976,15 @@ function generateAIInsights() {
     }
 
 
-    /* CATEGORY ANALYSIS */
-
     const categories = {};
 
 
     expenses.forEach(t => {
 
         categories[t.category] =
-            (categories[t.category] || 0) +
+            (
+                categories[t.category] || 0
+            ) +
             Number(t.amount);
 
     });
@@ -683,37 +992,41 @@ function generateAIInsights() {
 
     const topCategory =
         Object.entries(categories)
-            .sort((a, b) => b[1] - a[1])[0];
+            .sort(
+                (a, b) =>
+                    b[1] - a[1]
+            )[0];
 
 
     const savings =
         income - totalExpenses;
 
 
-    let insights = [];
+    const savingsRate =
+        income > 0
+            ? savings / income * 100
+            : 0;
 
 
-    /* Top spending */
+    const insights = [];
+
 
     insights.push({
 
         type: "warning",
 
-        title: "Highest spending category",
+        title:
+            `${topCategory[0]} is your highest spending category`,
 
         text:
-            `${topCategory[0]} is your biggest expense category at ${formatCurrency(topCategory[1])}. Consider setting a monthly limit for this category.`
+            `You have spent ${formatCurrency(
+                topCategory[1]
+            )} on ${topCategory[0]}. Consider setting a limit for this category.`
 
     });
 
 
-    /* Savings */
-
     if (income > 0) {
-
-        const savingsRate =
-            (savings / income) * 100;
-
 
         if (savingsRate >= 20) {
 
@@ -721,23 +1034,34 @@ function generateAIInsights() {
 
                 type: "success",
 
-                title: "Healthy savings rate",
+                title:
+                    "Healthy savings rate 🎯",
 
                 text:
-                    `You're currently saving around ${savingsRate.toFixed(0)}% of your income. That's a strong financial habit.`
+                    `You're saving around ${savingsRate.toFixed(
+                        0
+                    )}% of your income. Keep up the good work!`
 
             });
 
-        } else {
+        }
+
+        else {
 
             insights.push({
 
                 type: "warning",
 
-                title: "Increase your savings",
+                title:
+                    "Your savings could improve",
 
                 text:
-                    `Your current savings rate is ${Math.max(0, savingsRate).toFixed(0)}%. Try reducing unnecessary expenses and aim for at least 20%.`
+                    `Your current savings rate is ${Math.max(
+                        0,
+                        savingsRate
+                    ).toFixed(
+                        0
+                    )}%. Try reducing unnecessary spending.`
 
             });
 
@@ -746,58 +1070,44 @@ function generateAIInsights() {
     }
 
 
-    /* Expense analysis */
+    insights.push({
 
-    if (totalExpenses > 10000) {
+        type: "success",
 
-        insights.push({
+        title:
+            "Smart spending tip 💡",
 
-            type: "warning",
+        text:
+            `Review your ${topCategory[0]} expenses and try to reduce them by 10% next month.`
 
-            title: "Spending alert",
-
-            text:
-                `You've spent ${formatCurrency(totalExpenses)} so far. Review your recent transactions to identify expenses you can reduce.`
-
-        });
-
-    } else {
-
-        insights.push({
-
-            type: "success",
-
-            title: "Spending looks controlled",
-
-            text:
-                `Your recorded expenses are currently ${formatCurrency(totalExpenses)}. Keep monitoring your spending consistently.`
-
-        });
-
-    }
+    });
 
 
     container.innerHTML =
         insights
-            .map(insight => `
+            .map(
+                insight => `
 
-                <div class="insight ${insight.type}">
+                    <div class="insight ${insight.type}">
 
-                    <strong>
-                        ${insight.title}
-                    </strong>
+                        <strong>
+                            ${insight.title}
+                        </strong>
 
-                    ${insight.text}
+                        ${insight.text}
 
-                </div>
+                    </div>
 
-            `)
+                `
+            )
             .join("");
 
 }
 
 
-/* ================= BUDGET ================= */
+/* =========================================================
+   BUDGET
+========================================================= */
 
 function updateBudget() {
 
@@ -806,16 +1116,21 @@ function updateBudget() {
 
     const expenses =
         transactions
-            .filter(t => t.type === "expense")
+
+            .filter(
+                t => t.type === "expense"
+            )
+
             .reduce(
-                (sum, t) => sum + Number(t.amount),
+                (sum, t) =>
+                    sum + Number(t.amount),
                 0
             );
 
 
     const percentage =
         Math.min(
-            (expenses / budget) * 100,
+            expenses / budget * 100,
             100
         );
 
@@ -845,21 +1160,44 @@ function updateBudget() {
     document.getElementById(
         "budgetMessage"
     ).textContent =
+
         remaining >= 0
-            ? `${formatCurrency(remaining)} remaining from your monthly budget.`
-            : `You have exceeded your monthly budget by ${formatCurrency(Math.abs(remaining))}.`;
+
+            ? `${formatCurrency(
+                remaining
+            )} remaining from your monthly budget.`
+
+            : `Budget exceeded by ${formatCurrency(
+                Math.abs(remaining)
+            )}.`;
 
 
-    updateCategoryBudget("Food", "foodBudget");
+    updateCategoryBudget(
+        "Food",
+        "foodBudget"
+    );
 
-    updateCategoryBudget("Shopping", "shoppingBudget");
+    updateCategoryBudget(
+        "Shopping",
+        "shoppingBudget"
+    );
 
-    updateCategoryBudget("Transport", "transportBudget");
+    updateCategoryBudget(
+        "Transport",
+        "transportBudget"
+    );
 
-    updateCategoryBudget("Bills", "billsBudget");
+    updateCategoryBudget(
+        "Bills",
+        "billsBudget"
+    );
 
 }
 
+
+/* =========================================================
+   CATEGORY BUDGET
+========================================================= */
 
 function updateCategoryBudget(
     category,
@@ -868,13 +1206,16 @@ function updateCategoryBudget(
 
     const total =
         transactions
+
             .filter(
                 t =>
                     t.type === "expense" &&
                     t.category === category
             )
+
             .reduce(
-                (sum, t) => sum + Number(t.amount),
+                (sum, t) =>
+                    sum + Number(t.amount),
                 0
             );
 
@@ -887,7 +1228,58 @@ function updateCategoryBudget(
 }
 
 
-/* ================= SECURITY ================= */
+/* =========================================================
+   GLOBAL SEARCH
+========================================================= */
+
+function setupGlobalSearch() {
+
+    const search =
+        document.getElementById(
+            "globalSearch"
+        );
+
+
+    search.addEventListener(
+        "input",
+        () => {
+
+            document.getElementById(
+                "searchInput"
+            ).value =
+                search.value;
+
+
+            renderTransactions();
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        e => {
+
+            if (
+                (e.ctrlKey || e.metaKey) &&
+                e.key.toLowerCase() === "k"
+            ) {
+
+                e.preventDefault();
+
+                search.focus();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
 
 function escapeHTML(text) {
 

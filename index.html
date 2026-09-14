@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Smart Expense Manager</title>
+    <title>SmartSpend | AI Expense Manager</title>
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Chart.js -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
+
+<div class="background-glow glow-one"></div>
+<div class="background-glow glow-two"></div>
 
 <div class="app">
 
@@ -26,46 +32,82 @@
     <aside class="sidebar">
 
         <div class="logo">
-            <div class="logo-icon">₹</div>
-            <span>SmartSpend</span>
+
+            <div class="logo-icon">
+                ₹
+            </div>
+
+            <div>
+                <strong>Smart<span>Spend</span></strong>
+                <small>AI Expense Manager</small>
+            </div>
+
         </div>
 
+
         <nav>
+
             <a href="#" class="nav-item active">
-                <span>📊</span>
+                <span>⌂</span>
                 Dashboard
             </a>
 
             <a href="#transactions" class="nav-item">
-                <span>💳</span>
+                <span>▣</span>
                 Transactions
             </a>
 
             <a href="#analytics" class="nav-item">
-                <span>📈</span>
+                <span>▥</span>
                 Analytics
             </a>
 
             <a href="#insights" class="nav-item">
-                <span>🤖</span>
+                <span>✦</span>
                 AI Insights
             </a>
 
             <a href="#budget" class="nav-item">
-                <span>🎯</span>
+                <span>◎</span>
                 Budget
             </a>
+
+            <a href="#" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
         </nav>
 
-        <div class="sidebar-bottom">
-            <div class="user-card">
-                <div class="avatar">R</div>
 
-                <div>
-                    <strong>Rince</strong>
-                    <small>Personal Account</small>
-                </div>
+        <div class="sidebar-illustration">
+
+            <div class="wallet-3d">
+                💳
             </div>
+
+            <h3>
+                Better Money
+                <br>
+                <span>Brighter Future</span>
+            </h3>
+
+        </div>
+
+
+        <div class="user-card">
+
+            <div class="avatar">
+                R
+            </div>
+
+            <div>
+                <strong>Rince Mohamed</strong>
+                <small>Personal Account</small>
+            </div>
+
+            <span class="arrow">›</span>
+
         </div>
 
     </aside>
@@ -75,86 +117,184 @@
 
     <main class="main">
 
-        <!-- TOP BAR -->
+
+        <!-- TOP NAVIGATION -->
 
         <header class="topbar">
 
-            <div>
-                <h1>Dashboard</h1>
-                <p>Track your money. Make smarter decisions.</p>
+            <div class="search-box">
+
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    placeholder="Search transactions..."
+                    id="globalSearch"
+                >
+
+                <kbd>Ctrl K</kbd>
+
             </div>
 
-            <button class="add-btn" onclick="openModal()">
-                <span>+</span>
-                Add Transaction
-            </button>
+
+            <div class="top-actions">
+
+                <button class="round-btn">
+                    ☾
+                </button>
+
+                <button class="round-btn notification">
+                    ♧
+                    <span></span>
+                </button>
+
+                <button class="date-btn">
+                    📅
+                    <span>September 2026</span>
+                    ˅
+                </button>
+
+            </div>
 
         </header>
+
+
+        <!-- ================= WELCOME ================= -->
+
+        <section class="welcome">
+
+            <div>
+
+                <p class="greeting">
+                    Good morning,
+                </p>
+
+                <h1>
+                    Rince Mohamed 👋
+                </h1>
+
+                <p>
+                    Here's a quick overview of your finances.
+                </p>
+
+            </div>
+
+
+            <button class="add-btn" onclick="openModal()">
+
+                <span>＋</span>
+
+                Add Transaction
+
+            </button>
+
+        </section>
 
 
         <!-- ================= SUMMARY CARDS ================= -->
 
         <section class="summary-grid">
 
-            <div class="summary-card balance-card">
 
-                <div class="card-header">
-                    <span>Total Balance</span>
-                    <span class="card-icon">💰</span>
+            <div class="summary-card balance">
+
+                <div class="summary-top">
+
+                    <div class="icon-3d green">
+                        💳
+                    </div>
+
+                    <span>
+                        Total Balance
+                    </span>
+
                 </div>
 
-                <h2 id="balance">₹0</h2>
+                <h2 id="balance">
+                    ₹0
+                </h2>
 
-                <p class="positive">
-                    ↑ Your available balance
+                <p class="trend">
+                    ↑ 12%
+                    <span>vs. last month</span>
                 </p>
 
             </div>
 
 
-            <div class="summary-card">
+            <div class="summary-card income">
 
-                <div class="card-header">
-                    <span>Total Income</span>
-                    <span class="card-icon income-icon">↑</span>
+                <div class="summary-top">
+
+                    <div class="icon-3d cyan">
+                        ↗
+                    </div>
+
+                    <span>
+                        Total Income
+                    </span>
+
                 </div>
 
-                <h2 id="income">₹0</h2>
+                <h2 id="income">
+                    ₹0
+                </h2>
 
-                <p class="positive">
-                    Money coming in
+                <p class="trend">
+                    ↑ 8%
+                    <span>vs. last month</span>
                 </p>
 
             </div>
 
 
-            <div class="summary-card">
+            <div class="summary-card expenses">
 
-                <div class="card-header">
-                    <span>Total Expenses</span>
-                    <span class="card-icon expense-icon">↓</span>
+                <div class="summary-top">
+
+                    <div class="icon-3d pink">
+                        ↓
+                    </div>
+
+                    <span>
+                        Total Expenses
+                    </span>
+
                 </div>
 
-                <h2 id="expenses">₹0</h2>
+                <h2 id="expenses">
+                    ₹0
+                </h2>
 
-                <p class="negative">
-                    Money going out
+                <p class="trend">
+                    ↑ 5%
+                    <span>vs. last month</span>
                 </p>
 
             </div>
 
 
-            <div class="summary-card">
+            <div class="summary-card savings">
 
-                <div class="card-header">
-                    <span>Savings Rate</span>
-                    <span class="card-icon">🎯</span>
+                <div class="summary-top">
+
+                    <div class="icon-3d purple">
+                        🐷
+                    </div>
+
+                    <span>
+                        Savings Rate
+                    </span>
+
                 </div>
 
-                <h2 id="savingsRate">0%</h2>
+                <h2 id="savingsRate">
+                    0%
+                </h2>
 
-                <p class="positive">
-                    Of your income
+                <p class="trend">
+                    ↑ 15%
+                    <span>vs. last month</span>
                 </p>
 
             </div>
@@ -162,31 +302,78 @@
         </section>
 
 
-        <!-- ================= CONTENT GRID ================= -->
+        <!-- ================= MAIN ANALYTICS ================= -->
 
-        <section class="dashboard-grid">
+        <section class="main-grid">
 
 
             <!-- SPENDING CHART -->
 
-            <div class="panel chart-panel" id="analytics">
+            <div
+                class="panel spending-panel"
+                id="analytics"
+            >
 
                 <div class="panel-header">
 
                     <div>
-                        <h3>Spending Overview</h3>
-                        <p>Your expenses by category</p>
+
+                        <h3>
+                            Spending by Category
+                        </h3>
+
+                        <p>
+                            See where your money goes
+                        </p>
+
                     </div>
 
+
                     <select id="chartFilter">
-                        <option value="all">All Time</option>
-                        <option value="month">This Month</option>
+
+                        <option value="all">
+                            This Month
+                        </option>
+
+                        <option value="month">
+                            Last Month
+                        </option>
+
                     </select>
 
                 </div>
 
-                <div class="chart-container">
-                    <canvas id="expenseChart"></canvas>
+
+                <div class="chart-area">
+
+                    <div class="chart-wrapper">
+
+                        <canvas
+                            id="expenseChart"
+                        ></canvas>
+
+                        <div class="chart-center">
+
+                            <strong id="chartTotal">
+                                ₹0
+                            </strong>
+
+                            <span>
+                                Total Spent
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="category-list"
+                        id="categoryList"
+                    >
+
+                    </div>
+
                 </div>
 
             </div>
@@ -194,24 +381,33 @@
 
             <!-- AI INSIGHTS -->
 
-            <div class="panel insights-panel" id="insights">
+            <div
+                class="panel ai-panel"
+                id="insights"
+            >
 
-                <div class="panel-header">
+                <div class="ai-header">
 
                     <div>
-                        <h3>🤖 AI Financial Insights</h3>
-                        <p>Smart analysis of your spending</p>
+
+                        <h3>
+                            ✦ AI Financial Insights
+                        </h3>
+
+                        <span class="powered">
+                            ● Powered by AI
+                        </span>
+
                     </div>
 
-                    <span class="ai-badge">AI</span>
+                    <div class="robot">
+                        🤖
+                    </div>
 
                 </div>
 
-                <div id="insightsContainer">
 
-                    <div class="insight loading">
-                        Analyzing your finances...
-                    </div>
+                <div id="insightsContainer">
 
                 </div>
 
@@ -220,24 +416,38 @@
         </section>
 
 
-        <!-- ================= LOWER GRID ================= -->
+        <!-- ================= LOWER SECTION ================= -->
 
         <section class="lower-grid">
 
 
-            <!-- RECENT TRANSACTIONS -->
+            <!-- TRANSACTIONS -->
 
-            <div class="panel transactions-panel" id="transactions">
+            <div
+                class="panel transactions-panel"
+                id="transactions"
+            >
 
                 <div class="panel-header">
 
                     <div>
-                        <h3>Recent Transactions</h3>
-                        <p>Your latest financial activity</p>
+
+                        <h3>
+                            Recent Transactions
+                        </h3>
+
+                        <p>
+                            Your latest financial activity
+                        </p>
+
                     </div>
 
-                    <button class="text-btn" onclick="openModal()">
-                        + Add
+
+                    <button
+                        class="view-btn"
+                        onclick="openModal()"
+                    >
+                        ＋ Add
                     </button>
 
                 </div>
@@ -252,17 +462,47 @@
                         oninput="renderTransactions()"
                     >
 
-                    <select id="categoryFilter" onchange="renderTransactions()">
 
-                        <option value="all">All Categories</option>
-                        <option value="Food">Food</option>
-                        <option value="Shopping">Shopping</option>
-                        <option value="Transport">Transport</option>
-                        <option value="Bills">Bills</option>
-                        <option value="Entertainment">Entertainment</option>
-                        <option value="Health">Health</option>
-                        <option value="Salary">Salary</option>
-                        <option value="Other">Other</option>
+                    <select
+                        id="categoryFilter"
+                        onchange="renderTransactions()"
+                    >
+
+                        <option value="all">
+                            All Categories
+                        </option>
+
+                        <option value="Food">
+                            Food
+                        </option>
+
+                        <option value="Shopping">
+                            Shopping
+                        </option>
+
+                        <option value="Transport">
+                            Transport
+                        </option>
+
+                        <option value="Bills">
+                            Bills
+                        </option>
+
+                        <option value="Entertainment">
+                            Entertainment
+                        </option>
+
+                        <option value="Health">
+                            Health
+                        </option>
+
+                        <option value="Salary">
+                            Salary
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
 
                     </select>
 
@@ -271,8 +511,6 @@
 
                 <div id="transactionsList">
 
-                    <!-- Transactions generated by JavaScript -->
-
                 </div>
 
             </div>
@@ -280,25 +518,40 @@
 
             <!-- BUDGET -->
 
-            <div class="panel budget-panel" id="budget">
+            <div
+                class="panel budget-panel"
+                id="budget"
+            >
 
                 <div class="panel-header">
 
                     <div>
-                        <h3>Monthly Budget</h3>
-                        <p>Keep your spending under control</p>
+
+                        <h3>
+                            Monthly Budget
+                        </h3>
+
+                        <p>
+                            Keep your spending under control
+                        </p>
+
                     </div>
 
-                    <span class="budget-percent" id="budgetPercent">
+                    <strong
+                        id="budgetPercent"
+                        class="budget-percent"
+                    >
                         0%
-                    </span>
+                    </strong>
 
                 </div>
 
 
-                <div class="budget-number">
+                <div class="budget-total">
 
-                    <strong id="budgetSpent">₹0</strong>
+                    <strong id="budgetSpent">
+                        ₹0
+                    </strong>
 
                     <span>
                         / ₹30,000
@@ -307,7 +560,7 @@
                 </div>
 
 
-                <div class="progress-bar">
+                <div class="progress-container">
 
                     <div
                         class="progress"
@@ -317,18 +570,24 @@
                 </div>
 
 
-                <p class="budget-message" id="budgetMessage">
-                    Loading budget information...
+                <p
+                    class="budget-message"
+                    id="budgetMessage"
+                >
+                    Loading...
                 </p>
 
 
                 <div class="budget-categories">
 
-                    <div class="budget-category">
+                    <div class="budget-row">
 
                         <div>
-                            <span class="category-dot food"></span>
+
+                            <span class="dot orange"></span>
+
                             Food
+
                         </div>
 
                         <strong id="foodBudget">
@@ -338,11 +597,14 @@
                     </div>
 
 
-                    <div class="budget-category">
+                    <div class="budget-row">
 
                         <div>
-                            <span class="category-dot shopping"></span>
+
+                            <span class="dot purple-dot"></span>
+
                             Shopping
+
                         </div>
 
                         <strong id="shoppingBudget">
@@ -352,11 +614,14 @@
                     </div>
 
 
-                    <div class="budget-category">
+                    <div class="budget-row">
 
                         <div>
-                            <span class="category-dot transport"></span>
+
+                            <span class="dot blue-dot"></span>
+
                             Transport
+
                         </div>
 
                         <strong id="transportBudget">
@@ -366,11 +631,14 @@
                     </div>
 
 
-                    <div class="budget-category">
+                    <div class="budget-row">
 
                         <div>
-                            <span class="category-dot bills"></span>
+
+                            <span class="dot red-dot"></span>
+
                             Bills
+
                         </div>
 
                         <strong id="billsBudget">
@@ -390,20 +658,34 @@
 </div>
 
 
-<!-- ================= ADD TRANSACTION MODAL ================= -->
+<!-- ================= MODAL ================= -->
 
-<div class="modal-overlay" id="modal">
+<div
+    class="modal-overlay"
+    id="modal"
+>
 
     <div class="modal">
 
         <div class="modal-header">
 
             <div>
-                <h2>Add Transaction</h2>
-                <p>Record your income or expense</p>
+
+                <h2>
+                    Add Transaction
+                </h2>
+
+                <p>
+                    Record your income or expense
+                </p>
+
             </div>
 
-            <button class="close-btn" onclick="closeModal()">
+
+            <button
+                class="close-btn"
+                onclick="closeModal()"
+            >
                 ×
             </button>
 
@@ -411,6 +693,7 @@
 
 
         <form id="transactionForm">
+
 
             <div class="type-switch">
 
@@ -471,14 +754,33 @@
 
             <select id="category">
 
-                <option value="Food">Food</option>
-                <option value="Shopping">Shopping</option>
-                <option value="Transport">Transport</option>
-                <option value="Bills">Bills</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Health">Health</option>
-                <option value="Salary">Salary</option>
-                <option value="Other">Other</option>
+                <option value="Food">
+                    Food
+                </option>
+
+                <option value="Shopping">
+                    Shopping
+                </option>
+
+                <option value="Transport">
+                    Transport
+                </option>
+
+                <option value="Bills">
+                    Bills
+                </option>
+
+                <option value="Entertainment">
+                    Entertainment
+                </option>
+
+                <option value="Health">
+                    Health
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
 
             </select>
 
@@ -511,4 +813,5 @@
 <script src="script.js"></script>
 
 </body>
+
 </html>
